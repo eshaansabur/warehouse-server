@@ -6,6 +6,8 @@ const cors = require('cors');
 //middleware
 app.use(cors())
 app.use(express.json())
+require('dotenv').config()
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -28,18 +30,16 @@ async function run() {
         //console.log(blogCollection);
         const productCollection = client.db("warehouse").collection("products");
         //Read Blogs
-        app.get('/blogs', async(req, res) => {
+        app.get('/products', async(req, res) =>{
             const query = {};
-            const blogs = await blogCollection.find(query).toArray();
-            console.log(blogs);
-            res.send(blogs);
-
+            const products = await productCollection.find(query).toArray();
+            res.send(products);
         })
 
         app.get('/blog/:blogId', async(req, res) => {
             const blogId = req.params.blogId;
             const query = {_id: ObjectId(blogId)};
-            const blogs = await blogCollection.find(query);
+            const blogs = await blogCollection.findOne(query);
             console.log(blogs);
             res.send(blogs);
 
