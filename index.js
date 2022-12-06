@@ -45,6 +45,7 @@ async function run() {
         })
 
         app.get('/product/:fruitId', async(req, res) =>{
+            const fruitId = req.params.fruitId;
             const query = {_id: ObjectId(fruitId)};
             console.log(query);
             const products = await productCollection.findOne(query);
