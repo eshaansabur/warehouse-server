@@ -34,6 +34,12 @@ async function run() {
             res.send(products);
         })
 
+        app.get('/blogs', async(req, res) =>{
+          const query = {};
+          const blogs = await blogCollection.find(query).toArray();
+          res.send(blogs);
+        })
+
         app.get('/blog/:blogId', async(req, res) => {
             const blogId = req.params.blogId;
             const query = {_id: ObjectId(blogId)};
